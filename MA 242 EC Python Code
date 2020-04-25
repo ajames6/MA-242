@@ -1,0 +1,44 @@
+#Anna James
+#MA 242 001 EC Project
+
+import math
+import numpy as np
+
+
+def find_t(d, A):
+    d_mag = np.linalg.norm(d) ** 2
+    mul = np.dot(A, d, out = None)
+    mull2 = np.squeeze(np.asarray(mul))
+
+    d12 = np.squeeze(np.asarray(d))
+    low = np.dot(d12, mull2)
+    result = d_mag / low
+
+
+def find_d(A, x, b):
+    mul = np.matmul(A, x)
+    return -(np.subtract(mul, b))
+
+
+iterates = 1
+e = 10 ** -4
+
+guessa = ny.array([[1], [1]])
+guessb = ny.array([[10], [10]])
+guessc = ny.array([[100], [100]])
+
+A = np.array([[1.001, -.999], [-.999, 1.001]])
+b = np.array([[1], [2]])
+
+x = guessc
+d = find_d(A, x, b)
+d_mag = np.linalg.norm(d)
+
+while d_mag > e:
+    iterates += 1
+    t = find_t(d, A)
+    d = find_d(A, x, b)
+    d_mag = np.linalg.norm(d)
+    x = np.add(x, np.multiply(t, d))
+
+print("d_mag: { } \niterates: { } ".format(d_mag, iterates))
